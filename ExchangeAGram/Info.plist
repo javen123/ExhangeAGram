@@ -2,6 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>ExchangeAGram would like to  use your location</string>
+	<key>NSLocationWhenInUsageDescription</key>
+	<string>ExchangeAGram would like to  use your location</string>
+	<key>NSLocationUsageDescription</key>
+	<string>ExchangeAGram would like to  use your location</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb307765079431677</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookDisplayName</key>
+	<string>ExchangeAGram</string>
+	<key>FacebookAppID</key>
+	<string>307765079431677</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

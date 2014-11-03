@@ -1,8 +1,8 @@
-//
+ //
 //  AppDelegate.swift
 //  ExchangeAGram
 //
-//  Created by user on 10/14/14.
+//  Created by user on 10/28/14.
 //  Copyright (c) 2014 Neva. All rights reserved.
 //
 
@@ -16,8 +16,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let cache = NSURLCache(memoryCapacity: 8 * 1024 * 1024, diskCapacity: 20 * 1024 * 1024, diskPath: nil)
+        NSURLCache.setSharedURLCache(cache)
+        
+        FBLoginView.self
+        FBProfilePictureView.self
+        
         return true
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        var wasHandled:Bool = FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
+        return wasHandled
+    }
+    // purge cache at memory warning
+    
+    func applicationDidReceiveMemoryWarning(application: UIApplication) {
+        NSURLCache.sharedURLCache().removeAllCachedResponses()
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -35,7 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        
+        
+        
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -55,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
         let modelURL = NSBundle.mainBundle().URLForResource("ExchangeAGram", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)
+        return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
 
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
@@ -72,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            error = NSError.errorWithDomain("YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
